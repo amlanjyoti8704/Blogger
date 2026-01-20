@@ -25,17 +25,16 @@ export const AppContextProvider = ({ children }) => {
     // };
 
     // logout user
-    // const logout = async () => {
-    //     try {
-    //         await axios.post(`${backendURL}/api/auth/signout`);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-
-    //     localStorage.removeItem('token');
-    //     setUserToken(null);
-    //     setUserData(null);
-    // };
+    const logout = async () => {
+        try {
+            await axios.post(`${backendURL}/api/user/signout`);
+        } catch (error) {
+            console.error(error);
+        }
+        localStorage.removeItem('userToken');
+        setUserToken(null);
+        setUserData(null);
+    };
 
     // whenever token changes → refetch user
     // useEffect(() => {
@@ -50,8 +49,8 @@ export const AppContextProvider = ({ children }) => {
         setShowLogin,
         userToken,
         setUserToken,
+        logout
         // fetchUserData,
-        // logout
     };
 
     return (

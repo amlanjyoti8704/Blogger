@@ -99,7 +99,7 @@ function Login() {
         <button
           type="button"
           onClick={() => setShowLogin(false)}
-          className="absolute top-4 right-4 text-xl"
+          className="relative bottom-2 left-80 text-xl"
         >
           ✕
         </button>

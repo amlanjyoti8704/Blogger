@@ -5,6 +5,9 @@ import Home from './Pages/home.jsx';
 import { useContext } from 'react';
 import { AppContext } from './Context/appContext.jsx';
 import Login from './Components/login.jsx';
+import About from './Pages/about.jsx';
+import Layout from './Layout.jsx';
+
 
 function App() {
 
@@ -14,7 +17,10 @@ function App() {
     <div>
       {showLogin && <Login />}
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/' element={<Layout/>}>
+          <Route index element={<Home/>}/>
+          <Route path='about' element={<About/>}/>
+        </Route>
       </Routes>
     </div>
   )
