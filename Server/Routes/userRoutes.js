@@ -1,17 +1,12 @@
-import express from "express";
-import { deleteUser, getUser, getUsers, signout, test, updateUser } from "../controllers/user.controller.js";
-import { verifyToken } from "../utils/verifyUser.js";
+import express from 'express';
+import upload from '../Config/multer.js';
+import { signup, signin, google } from '../Controllers/userController.js';
 
-const router = express.Router();
+const router=express.Router();
 
-router.get('/test', test);
-router.get('/me', verifyToken, (req, res)=>{
-    res.status(200).json(req.user);
-});
-router.put('/update/:userId', verifyToken, updateUser);
-router.delete('/delete/:userId', verifyToken, deleteUser);
-router.post('/signout', signout);
-router.get('/getusers', verifyToken, getUsers);
-router.get('/:userId', getUser);
+// Define user-related routes here
+router.post('/signup', upload.single('image'), signup);
+router.post('/signin', signin);
+router.post('/google', google);
 
 export default router;
