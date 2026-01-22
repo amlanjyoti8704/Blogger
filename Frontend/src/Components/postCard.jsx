@@ -19,6 +19,7 @@ export default function PostCard({ post }) {
       <div className='p-3 flex flex-col gap-2'>
         <p className='text-lg font-semibold line-clamp-2'>{post.title}</p>
         <span className='italic text-sm'>{post.category}</span>
+        <span className='italic text-slate-500 dark:text-slate-400 text-xs'>~{post.author}</span>
         <Link
           to={`/post/${post.slug}`}
           className='z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0 

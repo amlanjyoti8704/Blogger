@@ -89,11 +89,15 @@ function Navbar() {
                                 <ThemeButton/>
                             </NavLink>
                         </li>
+
                         {userData?.isAdmin && (
+                        <li>
                             <NavLink to="/users" className={({ isActive }) => `${isActive ? "text-black dark:text-white border-b xl:border-0 xl:scale-120 xl:hover:border-b-0 xl:text-black dark:xl:text-gray-200" : "lg:border-0 text-black dark:text-gray-100"} block py-2 pr-2 pl-1 duration-200 hover:bg-transparent xl:hover:border-b lg:p-0`}>
                                 Users
                             </NavLink>
+                        </li>
                         )}
+                        
                         {/* <li>
                             <NavLink>
 

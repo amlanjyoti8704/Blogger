@@ -27,7 +27,9 @@ function App() {
           <Route path='posts' element={<Posts/>}/>
           <Route path='post/:slug' element={<Post/>}/>
 
-          <Route path="create-post" element={userData?.isAdmin?<CreatePost/>:<Navigate to="/"/>}/>
+          {/* this is deactivated due to admin only post feature */}
+          {/* <Route path="create-post" element={userData?.isAdmin?<CreatePost/>:<Navigate to="/"/>}/> */}
+          <Route path="create-post" element={userData?<CreatePost/>:<Navigate to="/"/>}/>
           <Route path="users" element={userData?.isAdmin?<User/>:<Navigate to="/"/>}/>
         </Route>
       </Routes>

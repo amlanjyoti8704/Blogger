@@ -29,7 +29,7 @@ function About() {
             </p>
           </div>
 
-          <div className='md:z-20 z-10 flex-block order-1 row-span-1 h-100 w-75 md:h-100 md:w-75 rounded-full bg-[#030417] justify-center items-center relative md:absolute top-4/10 sm:top-5/11 md:top-8/16 left-1/2 md:left-3/4 -translate-x-1/2 -translate-y-1/2 md:-translate-y-1/2 drop-shadow-[0_0_60px_#222d72]'>
+          <div className='md:z-20 z-10 flex-block order-1 row-span-1 h-100 w-75 md:h-100 md:w-75 rounded-full bg-[#030417] justify-center items-center relative md:absolute top-4/10 sm:top-5/11 md:top-8/16 left-1/2 md:left-3/4 -translate-x-1/2 -translate-y-1/2 md:-translate-y-1/2 drop-shadow-[0_0_60px_gray] dark:drop-shadow-[0_0_60px_#222d72]'>
               <img 
                   src={amlanjyoti}
                   alt="Profile_image" 

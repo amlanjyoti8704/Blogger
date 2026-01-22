@@ -2,9 +2,10 @@ import Post from '../Models/Post.js';
 import { errorHandler } from '../Utils/error.js';
 
 export const create=async(req,res,next)=>{
-    if(!req.user.isAdmin){
-        return next(errorHandler(403,"You are not authorized to create a post"));
-    }
+    // this allows only admin to create post, so I deactivated this.
+    // if(!req.user.isAdmin){
+    //     return next(errorHandler(403,"You are not authorized to create a post"));
+    // }
     if(!req.body.title || !req.body.content){
         return next(errorHandler(400,"Title and Content are required"));
     }
@@ -17,6 +18,7 @@ export const create=async(req,res,next)=>{
     '-'+Date.now();
     const newPost=new Post({
         title: req.body.title,
+        author: req.body.author,
         content: req.body.content,
         category: req.body.category,
         slug,
@@ -42,6 +44,7 @@ export const getposts=async(req,res,next)=>{
         const sortDirection = req.query.order === 'asc' ? 1 : -1;
         const posts = await Post.find({
         ...(req.query.userId && { userId: req.query.userId }),
+        ...(req.query.author && { author: req.query.author}),
         ...(req.query.category && { category: req.query.category }),
         ...(req.query.slug && { slug: req.query.slug }),
         ...(req.query.postId && { _id: req.query.postId }),

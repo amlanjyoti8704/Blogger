@@ -123,7 +123,7 @@ function Post() {
           </div>
 
           <Link
-            to="/search"
+            to="/posts"
             className="text-lg text-teal-500 hover:underline text-center"
           >
             View all posts

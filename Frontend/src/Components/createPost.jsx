@@ -9,6 +9,7 @@ function CreatePost() {
 
   const [formData, setFormData] = useState({
     title: '',
+    author: '',
     category: '',
     content: '',
   });
@@ -34,6 +35,7 @@ function CreatePost() {
     try {
       const dataToSend = new FormData();
       dataToSend.append('title', formData.title);
+      dataToSend.append('author', formData.author);
       dataToSend.append('category', formData.category);
       dataToSend.append('content', formData.content);
       if (file) dataToSend.append('image', file);
@@ -74,6 +76,16 @@ function CreatePost() {
           name="title"
           placeholder="Post title"
           value={formData.title}
+          onChange={handleChange}
+          required
+          className="border p-2 rounded"
+        />
+
+        <input
+          type="text"
+          name="author"
+          placeholder="Author name"
+          value={formData.author}
           onChange={handleChange}
           required
           className="border p-2 rounded"

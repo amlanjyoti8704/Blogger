@@ -63,7 +63,16 @@ export const AppContextProvider = ({ children }) => {
 
     // whenever token changes → refetch user
     useEffect(() => {
-        fetchUserData();
+    const token = localStorage.getItem('userToken');
+    if (token) {
+        setUserToken(token);
+    }
+    }, []);
+
+    useEffect(() => {
+        if(userToken){
+            fetchUserData();
+        }
     }, [userToken]);
 
     const value = {

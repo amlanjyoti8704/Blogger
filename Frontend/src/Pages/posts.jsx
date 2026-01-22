@@ -1,18 +1,18 @@
 import { useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { AppContext } from '../Context/appContext.jsx';
 import PostCard from '../Components/postCard.jsx';
 
 function Posts() {
-  const { posts, fetchPosts } = useContext(AppContext);
+  const { posts, fetchPosts, userData } = useContext(AppContext);
 
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 min-h-screen dark:text-gray-200">
+    <div className="max-w-6xl mx-auto min-h-screen dark:text-gray-200">
       <h1 className="text-3xl font-semibold text-center mb-8">
         All Blog Posts
       </h1>
@@ -28,15 +28,16 @@ function Posts() {
           <PostCard key={post._id} post={post} />
         ))}
       </div>
-
-      <div className="text-center mt-10">
-        <Link
-          to="/create-post"
-          className="text-teal-500 hover:underline"
-        >
-          Create a new post →
-        </Link>
-      </div>
+      {userData && (
+        <div className="text-center mt-10">
+          <NavLink
+            to="/create-post"
+            className="text-teal-500 hover:underline"
+          >
+            Create a new post →
+          </NavLink>
+        </div>
+      )}
     </div>
   );
 }
