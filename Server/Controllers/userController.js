@@ -125,3 +125,45 @@ export const google=async(req,res,next)=>{
         next(err);
     }
 }
+
+
+export const getUsers = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, 'Admins only'));
+  }
+
+  try {
+    const users = await User.find().select('-password');
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const updateUserRole = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, 'Admins only'));
+  }
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { isAdmin: req.body.isAdmin },
+      { new: true }
+    ).select('-password');
+
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+export const getMe = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};

@@ -10,19 +10,21 @@ export const AppContextProvider = ({ children }) => {
     const [showLogin, setShowLogin] = useState(false);
     const [userToken, setUserToken] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [posts, setPosts] = useState([]);
+    const [currentPost, setCurrentPost] = useState(null);
     
     // fetch logged-in user data
-    // const fetchUserData = async () => {
-    //     if (!userToken) return;
+    const fetchUserData = async () => {
+        if (!userToken) return;
 
-    //     try {
-    //         const { data } = await axios.get(`${backendURL}/api/user/getusers`, {headers: { token: userToken }});
-    //         setUserData(data);
-    //     } catch (error) {
-    //         console.error(error);
-    //         logout();
-    //     }
-    // };
+        try {
+            const { data } = await axios.get(`${backendURL}/api/user/me`, {headers: { token: userToken }});
+            setUserData(data);
+        } catch (error) {
+            console.error(error);
+            logout();
+        }
+    };
 
     // logout user
     const logout = async () => {
@@ -36,10 +38,33 @@ export const AppContextProvider = ({ children }) => {
         setUserData(null);
     };
 
+    // fetch posts
+    const fetchPosts = async () => {
+        try {
+            const { data } = await axios.get(`${backendURL}/api/post/getposts`);
+            setPosts(data.posts);
+            console.log("Posts data:", data);
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    }
+
+    // fetch a single post
+    const fetchSinglePost=async(slug)=>{
+        try{
+            const { data } = await axios.get(`${backendURL}/api/post/getpost/${slug}`);
+            setCurrentPost(data);
+            console.log("Single Post data:", data);
+        }
+        catch(error){
+            console.error("Error fetching single post:", error);
+        }
+    }
+
     // whenever token changes → refetch user
-    // useEffect(() => {
-    //     fetchUserData();
-    // }, [userToken]);
+    useEffect(() => {
+        fetchUserData();
+    }, [userToken]);
 
     const value = {
         backendURL,
@@ -49,8 +74,14 @@ export const AppContextProvider = ({ children }) => {
         setShowLogin,
         userToken,
         setUserToken,
-        logout
-        // fetchUserData,
+        logout,
+        posts,
+        setPosts,
+        fetchPosts,
+        currentPost,
+        setCurrentPost,
+        fetchSinglePost,
+        fetchUserData,
     };
 
     return (

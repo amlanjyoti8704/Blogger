@@ -9,14 +9,19 @@ export const create=async(req,res,next)=>{
         return next(errorHandler(400,"Title and Content are required"));
     }
     const slug=req.body.title
-        .split(' ')
-        .join('-')
-        .toLowerCase()
-        .replace(/[^a-zA-Z0-9-]/g,'');
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-zA-Z0-9-]/g,'')
+    .split(' ')
+    .join('-')+
+    '-'+Date.now();
     const newPost=new Post({
-        ...req.body,
+        title: req.body.title,
+        content: req.body.content,
+        category: req.body.category,
         slug,
-        userId:req.user.id
+        userId: req.user.id,
+        image: `/uploads/${req.file.filename}`,
     });
     try{
         const savedPost=await newPost.save();
@@ -75,6 +80,20 @@ export const getposts=async(req,res,next)=>{
         next(error);
     }
 }
+
+export const getPostBySlug = async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ slug: req.params.slug });
+
+    if (!post) {
+      return next(errorHandler(404, 'Post not found'));
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    next(error);
+  }
+};
 
 
 export const deletepost = async (req, res, next) => {

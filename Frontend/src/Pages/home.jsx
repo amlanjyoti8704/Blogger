@@ -3,6 +3,7 @@ import Navbar from '../Components/navbar.jsx'
 import Footer from '../Components/footer.jsx'
 // import Content from '../Components/content.jsx'
 import Dashboard from './dashboard.jsx'
+import CreatePost from '../Components/createPost.jsx'
 
 function Home() {
     return (
@@ -11,6 +12,7 @@ function Home() {
                 
             </div> */}
             <Dashboard/>
+            <CreatePost/>
         </div>
     )
 }

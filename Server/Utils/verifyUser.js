@@ -4,7 +4,7 @@ import { errorHandler } from './error.js';
 
 // import { errorHandler } from './error.js';
 export const verifyToken = async (req, res, next) => {
-  const token = req.header.token;
+  const token = req.headers.token;
   if (!token) {
     return next(errorHandler(401, 'Unauthorized'));
   }

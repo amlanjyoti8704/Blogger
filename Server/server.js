@@ -3,7 +3,9 @@ import cors from'cors';
 import connectDB from './Config/db.js';
 import connectCloudinary from './Config/cloudinary.js';
 import userRoutes from './Routes/userRoutes.js';
+import postRoutes from './Routes/postRoutes.js';
 import { configDotenv } from 'dotenv';
+import path from 'path';
 
 const app=express();
 
@@ -13,6 +15,7 @@ await connectDB();
 // middlewares
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 configDotenv();
 
 // connect to cloudinary
@@ -25,6 +28,7 @@ app.get('/', (req,res)=>{
 
 // Routes
 app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
 
 
 // PORT

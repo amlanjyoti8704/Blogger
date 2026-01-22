@@ -1,0 +1,44 @@
+import { useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+import { AppContext } from '../Context/appContext.jsx';
+import PostCard from '../Components/postCard.jsx';
+
+function Posts() {
+  const { posts, fetchPosts } = useContext(AppContext);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  return (
+    <div className="max-w-6xl mx-auto p-6 min-h-screen dark:text-gray-200">
+      <h1 className="text-3xl font-semibold text-center mb-8">
+        All Blog Posts
+      </h1>
+
+      {posts?.length === 0 && (
+        <p className="text-center text-gray-500">
+          No posts found.
+        </p>
+      )}
+
+      <div className="flex flex-wrap gap-6 justify-center">
+        {posts?.map((post) => (
+          <PostCard key={post._id} post={post} />
+        ))}
+      </div>
+
+      <div className="text-center mt-10">
+        <Link
+          to="/create-post"
+          className="text-teal-500 hover:underline"
+        >
+          Create a new post →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default Posts;
