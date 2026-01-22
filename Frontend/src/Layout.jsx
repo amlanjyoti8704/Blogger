@@ -14,7 +14,7 @@ function Layout() {
   return (
     <div className="flex flex-col min-h-screen dark:bg-gradient-to-t dark:from-slate-950 dark:to-slate-400">
       <Navbar />
-      <main className="flex-grow pt-[300px] min-h-[calc(100vh-300px)]">
+      <main className="flex-grow pt-[250px] min-h-[calc(100vh-300px)]">
         <Outlet />
       </main>
       <Footer />
