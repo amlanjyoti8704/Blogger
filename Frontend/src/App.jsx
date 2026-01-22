@@ -7,6 +7,7 @@ import { AppContext } from './Context/appContext.jsx';
 import Login from './Components/login.jsx';
 import About from './Pages/about.jsx';
 import Layout from './Layout.jsx';
+import Post from './Pages/post.jsx';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/' element={<Layout/>}>
           <Route index element={<Home/>}/>
           <Route path='about' element={<About/>}/>
+          <Route path='post' element={<Post/>}/>
         </Route>
       </Routes>
     </div>
