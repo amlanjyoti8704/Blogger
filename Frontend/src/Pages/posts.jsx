@@ -5,7 +5,7 @@ import { AppContext } from '../Context/appContext.jsx';
 import PostCard from '../Components/postCard.jsx';
 
 function Posts() {
-  const { posts, fetchPosts, userData } = useContext(AppContext);
+  const { posts, fetchPosts, userData, setShowLogin } = useContext(AppContext);
 
   useEffect(() => {
     fetchPosts();
@@ -28,7 +28,7 @@ function Posts() {
           <PostCard key={post._id} post={post} />
         ))}
       </div>
-      {userData && (
+      {userData ? (
         <div className="text-center mt-10">
           <NavLink
             to="/create-post"
@@ -36,6 +36,15 @@ function Posts() {
           >
             Create a new post →
           </NavLink>
+        </div>
+      ):(
+        <div className='text-center mt-20'>
+            <span>
+                <button className='text-blue-400 mr-1 hover:underline cursor-pointer' onClick={() => {setShowLogin(true)}}>
+                    Login
+                </button>
+                to create a post!!
+            </span>
         </div>
       )}
     </div>

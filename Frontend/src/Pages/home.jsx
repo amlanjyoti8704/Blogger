@@ -1,14 +1,16 @@
 import React, { useContext, useEffect } from 'react'
 import Navbar from '../Components/navbar.jsx'
 import Footer from '../Components/footer.jsx'
+import { Link } from 'react-router-dom'
 // import Content from '../Components/content.jsx'
 import Dashboard from './dashboard.jsx'
 import CreatePost from '../Components/createPost.jsx'
 import { AppContext } from '../Context/appContext.jsx'
 import PostCard from '../Components/postCard.jsx'
+import Login from '../Components/login.jsx'
 
 function Home() {
-    const {userData, posts, fetchPosts}=useContext(AppContext);
+    const {userData, posts, fetchPosts, setShowLogin}=useContext(AppContext);
 
     useEffect(() => {
     fetchPosts();
@@ -41,8 +43,18 @@ function Home() {
                     ))}
                 </div>
             </div>
-            {userData && (
+            {userData ? (
                 <CreatePost/>
+            )
+            :(
+                <div>
+                    <span>
+                        <button className='text-blue-400 mr-1 hover:underline cursor-pointer' onClick={() => {setShowLogin(true)}}>
+                            Login
+                        </button>
+                        to create a post!!
+                    </span>
+                </div>
             )}
         </div>
     )
