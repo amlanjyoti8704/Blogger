@@ -44,11 +44,13 @@ function Home() {
                 </div>
             </div>
             {userData ? (
-                <CreatePost/>
+                <div className='w-screen'>
+                    <CreatePost/>
+                </div>
             )
             :(
                 <div>
-                    <span>
+                    <span className='dark:text-white'>
                         <button className='text-blue-400 mr-1 hover:underline cursor-pointer' onClick={() => {setShowLogin(true)}}>
                             Login
                         </button>

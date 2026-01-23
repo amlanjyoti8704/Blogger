@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/create', verifyToken, upload.single('image'), create)
 router.get('/getposts', getposts)
 router.get('/getpost/:slug', getPostBySlug)
-router.delete('/deletepost/:postId/:userId', verifyToken, deletepost)
-router.put('/updatepost/:postId/:userId', verifyToken, updatepost)
+router.delete('/deletepost/:postId/', verifyToken, deletepost)
+router.put('/updatepost/:postId/', verifyToken, upload.single('image'), updatepost)
 
 export default router;

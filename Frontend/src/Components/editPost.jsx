@@ -1,10 +1,12 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AppContext } from '../Context/appContext.jsx';
 
-function CreatePost() {
-  const { backendURL, userToken } = useContext(AppContext);
+function EditPost() {
+  const { backendURL, userToken, currentPost, setCurrentPost } = useContext(AppContext);
+
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -17,6 +19,44 @@ function CreatePost() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  /* ---------- load post (refresh-safe) ---------- */
+  useEffect(() => {
+    const loadPost = async () => {
+      // 1️⃣ If coming from ManagePosts (fast path)
+      if (currentPost && currentPost._id === postId) {
+        setFormData({
+          title: currentPost.title,
+          author: currentPost.author,
+          category: currentPost.category,
+          content: currentPost.content,
+        });
+        return;
+      }
+
+      // 2️⃣ If page refreshed → fetch from backend
+      try {
+        const { data } = await axios.get(
+          `${backendURL}/api/post/getposts?postId=${postId}`
+        );
+
+        const post = data.posts[0];
+        if (!post) throw new Error('Post not found');
+
+        setCurrentPost(post);
+        setFormData({
+          title: post.title,
+          author: post.author,
+          category: post.category,
+          content: post.content,
+        });
+      } catch (err) {
+        setError('Failed to load post');
+      }
+    };
+
+    loadPost();
+  }, [postId]);
 
   /* ---------- handlers ---------- */
 
@@ -40,8 +80,8 @@ function CreatePost() {
       dataToSend.append('content', formData.content);
       if (file) dataToSend.append('image', file);
 
-      const { data } = await axios.post(
-        `${backendURL}/api/post/create`,
+      await axios.put(
+        `${backendURL}/api/post/updatepost/${postId}`,
         dataToSend,
         {
           headers: {
@@ -50,9 +90,9 @@ function CreatePost() {
         }
       );
 
-      navigate(`/post/${data.post.slug}`);
+      navigate(`/post/${currentPost.slug}`);
     } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong');
+      setError(err.response?.data?.message || 'Update failed');
     } finally {
       setLoading(false);
     }
@@ -61,71 +101,67 @@ function CreatePost() {
   /* ---------- UI ---------- */
 
   return (
-    <div className="max-w-5xl mx-auto p-6 dark:text-gray-300">
+    <div className="max-w-2xl mx-auto p-6 dark:text-gray-300">
       <h1 className="text-3xl font-semibold text-center mb-6">
-        Create New Post
+        Edit Post
       </h1>
 
       {error && (
         <p className="text-red-500 text-center mb-4">{error}</p>
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-white dark:bg-transparent p-6 rounded-lg shadow-md">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
           name="title"
-          placeholder="Post title"
           value={formData.title}
           onChange={handleChange}
           required
-          className="border p-2 rounded-xl dark:bg-gray-700 dark:text-white"
+          className="border p-2 rounded"
         />
 
         <input
           type="text"
           name="author"
-          placeholder="Author name"
           value={formData.author}
           onChange={handleChange}
           required
-          className="border p-2 rounded-xl dark:bg-gray-700 dark:text-white"
+          className="border p-2 rounded"
         />
 
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setFile(e.target.files[0])}
-          className="border p-2 rounded-xl dark:bg-gray-700 dark:text-white"
+          className="border p-2 rounded"
         />
 
         <input
           type="text"
           name="category"
-          placeholder="Category"
           value={formData.category}
           onChange={handleChange}
-          className="border p-2 rounded-xl dark:bg-gray-700 dark:text-white"
+          className="border p-2 rounded"
         />
 
         <textarea
           name="content"
-          placeholder="Write your post..."
           value={formData.content}
           onChange={handleChange}
           required
-          className="border p-2 rounded max-h-6xl dark:bg-gray-700 dark:text-white h-50"
+          className="border p-2 rounded h-40"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="bg-teal-500 text-white p-2 rounded-xl  dark:text-white hover:bg-teal-600"
+          className="bg-teal-500 text-white p-2 rounded hover:bg-teal-600"
         >
-          {loading ? 'Publishing...' : 'Publish'}
+          {loading ? 'Updating...' : 'Update Post'}
         </button>
       </form>
     </div>
   );
 }
 
-export default CreatePost;
+export default EditPost;
