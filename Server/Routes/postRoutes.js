@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyToken } from '../utils/verifyUser.js';
+import { verifyToken } from '../Utils/verifyUser.js';
 import { create, deletepost, getposts, updatepost, getPostBySlug } from '../Controllers/postController.js';
 import upload from '../Config/multer.js';
 
