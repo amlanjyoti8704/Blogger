@@ -40,6 +40,8 @@ function CreatePost() {
       dataToSend.append('content', formData.content);
       if (file) dataToSend.append('image', file);
 
+      console.log('TOKEN BEING SENT:', userToken);
+
       const { data } = await axios.post(
         `${backendURL}/api/post/create`,
         dataToSend,
