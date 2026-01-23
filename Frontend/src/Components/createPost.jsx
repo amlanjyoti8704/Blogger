@@ -4,8 +4,8 @@ import axios from 'axios';
 import { AppContext } from '../Context/appContext.jsx';
 
 function CreatePost() {
-  const { userToken } = useContext(AppContext);
-  const backendURL = import.meta.env.VITE_BACKEND_URL || 'https://blogger1-2ib5.onrender.com';
+  const { userToken, backendURL } = useContext(AppContext);
+  
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
