@@ -32,6 +32,12 @@ function CreatePost() {
     setError('');
     setLoading(true);
 
+    if (!file) {
+      setError('Please select an image');
+      setLoading(false);
+      return;
+    }
+
     try {
       const dataToSend = new FormData();
       dataToSend.append('title', formData.title);
