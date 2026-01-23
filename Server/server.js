@@ -13,7 +13,17 @@ const app=express();
 await connectDB();
 
 // middlewares
-app.use(cors());
+app.use(cors(
+    {
+        origin: [
+            'http://localhost:5173',
+            'https://blogger-aj.vercel.app'
+        ],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'token'],
+        credentials: true,
+    }
+));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 configDotenv();
