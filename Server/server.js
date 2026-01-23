@@ -17,8 +17,8 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'token'],
 }));
-// 👇 THIS LINE IS CRITICAL
-app.options('*', cors());
+
+// app.options('*', cors());
 
 
 
