@@ -10,22 +10,17 @@ function About() {
           {/* Content */}
           <div className="md:w-7/12 lg:w-6/12 order-2">
             <h2 className="text-3xl md:text-4xl font-extrabold text-center md:text-left tracking-tight">
-              <span className="bg-gradient-to-r from-pink-700 via-yellow-600 to-red-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-br from-pink-700 via-yellow-600 to-red-500 dark:from-blue-300 dark:via-blue-200 dark:to-blue-100 bg-clip-text text-transparent">
                 Something about Project
               </span>
             </h2>
 
             <p className="mt-6 text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum omnis
-              voluptatem accusantium nemo perspiciatis delectus atque autem.
-              Voluptatum tenetur beatae unde aperiam, repellat expedita
-              consequatur! Officiis id consequatur atque doloremque!
+              Blogger is a full-stack blogging platform built with React on the frontend and Express / Node.js on the backend. It allows users to register, create, manage, edit, and delete blog posts with image upload support. The application also includes user authentication and role-based access so that users can manage their own content securely.
             </p>
 
             <p className="mt-4 text-base md:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-              Nobis minus voluptatibus pariatur dignissimos libero quaerat iure
-              expedita at? Asperiores nemo possimus nesciunt dicta veniam
-              aspernatur quam mollitia.
+             This project demonstrates core features of modern web applications such as RESTful APIs, JWT based authentication, CRUD operations, file uploads, protected routes, and dynamic routing in React.
             </p>
           </div>
 
