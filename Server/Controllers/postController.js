@@ -17,6 +17,12 @@ export const create=async(req,res,next)=>{
     .split(' ')
     .join('-')+
     '-'+Date.now();
+
+    let imagePath = null;
+    if (req.file) {
+      imagePath = `/uploads/${req.file.filename}`;
+    }
+
     const newPost=new Post({
         title: req.body.title,
         author: req.body.author,
@@ -24,7 +30,7 @@ export const create=async(req,res,next)=>{
         category: req.body.category,
         slug,
         userId: req.user.id,
-        image: `/uploads/${req.file.filename}`,
+        image: imagePath,
     });
     try{
         const savedPost=await newPost.save();
@@ -34,6 +40,7 @@ export const create=async(req,res,next)=>{
         });
     }
     catch(error){
+        console.error('CREATE POST ERROR:', error);
         next(error);
     }
 }
