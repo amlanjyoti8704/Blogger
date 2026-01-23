@@ -1,6 +1,7 @@
 import Post from '../Models/Post.js';
 import { errorHandler } from '../Utils/error.js';
 
+
 export const create=async(req,res,next)=>{
     // this allows only admin to create post, so I deactivated this.
     // if(!req.user.isAdmin){
