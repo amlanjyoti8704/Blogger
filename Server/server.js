@@ -15,13 +15,7 @@ await connectDB();
 // middlewares
 app.use(cors(
     {
-        origin: [
-            'http://localhost:5173',
-            'https://blogger-aj.vercel.app'
-        ],
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'token'],
-        credentials: true,
+        origin: '*'
     }
 ));
 app.use(express.json());
