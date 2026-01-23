@@ -9,16 +9,18 @@ import path from 'path';
 
 configDotenv();
 const app=express();
-app.use(cors({
+const corsOptions = {
   origin: [
     'http://localhost:5173',
-    'https://blogger-aj.vercel.app'
+    'https://blogger-aj.vercel.app',
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'token'],
-}));
+};
 
-// app.options('*', cors());
+app.use(cors(corsOptions));
+
+app.options('/api/*', cors(corsOptions));
 
 
 
