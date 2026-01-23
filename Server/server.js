@@ -29,6 +29,7 @@ app.get('/', (req,res)=>{
 // Routes
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
+app.use('/uploads', express.static('uploads'));
 
 
 // PORT
