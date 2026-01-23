@@ -4,7 +4,8 @@ import axios from 'axios';
 import { AppContext } from '../Context/appContext.jsx';
 
 function CreatePost() {
-  const { backendURL, userToken } = useContext(AppContext);
+  const { userToken } = useContext(AppContext);
+  const backendURL = import.meta.env.VITE_BACKEND_URL || 'https://blogger1-2ib5.onrender.com';
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -47,6 +48,7 @@ function CreatePost() {
       if (file) dataToSend.append('image', file);
 
       console.log('TOKEN BEING SENT:', userToken);
+      console.log('BACKEND URL:', backendURL);
 
       const { data } = await axios.post(
         `${backendURL}/api/post/create`,
